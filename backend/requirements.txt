@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+redis
+pydantic
+pydantic-settings
+python-dotenv
+python-multipart
+psycopg[binary]
+numpy
+yt-dlp
+opencv-python-headless
+nudenet
