@@ -1,0 +1,22 @@
+# --- API / infrastructure ---
+fastapi
+uvicorn[standard]
+redis>=5
+pydantic>=2
+pydantic-settings
+python-multipart
+yt-dlp
+numpy
+opencv-python-headless
+
+# --- detectors ---
+nudenet                 # nudity   (brings onnxruntime; for GPU: pip install onnxruntime-gpu)
+ultralytics             # weapons  (YOLO, brings torch)
+torch                   # pick the CUDA build from https://pytorch.org if you have an NVIDIA GPU
+transformers==4.41.0    # blood / violence classifier (same version as the offline project)
+huggingface-hub>=0.23.0,<1.0
+safetensors
+pillow
+
+# --- speech ---
+faster-whisper
