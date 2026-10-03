@@ -2,6 +2,7 @@
 import Hls from "hls.js";
 import { useEffect, useRef, useState } from "react";
 import { hlsUrl, playhead, seek } from "@/lib/api";
+import Spinner from "@/components/ui/Spinner";
 
 interface Props {
   videoId: number;
@@ -84,20 +85,20 @@ export default function VideoPlayer({ videoId, ready }: Props) {
   }, [videoId, ready]);
 
   return (
-    <div className="relative rounded-2xl overflow-hidden bg-black aspect-video">
-      <video ref={videoRef} controls playsInline className="w-full h-full" />
+    <div className="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-xl shadow-black/25">
+      <video ref={videoRef} controls playsInline className="h-full w-full" />
       {(!ready || buffering) && (
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center pointer-events-none">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/55">
           <div className="text-center">
-            <div className="animate-spin h-8 w-8 border-2 border-white/30 border-t-white rounded-full mx-auto" />
-            <div className="mt-3 text-sm text-white/80">
+            <Spinner className="mx-auto h-8 w-8" />
+            <div className="mt-3 text-sm text-white/85">
               {ready ? "Censoring this part…" : "Preparing video…"}
             </div>
           </div>
         </div>
       )}
       {error && (
-        <div className="absolute bottom-0 inset-x-0 bg-red-900/80 text-red-100 text-xs px-3 py-2">{error}</div>
+        <div role="alert" className="absolute inset-x-0 bottom-0 bg-failed/90 px-3 py-2 text-xs text-white">{error}</div>
       )}
     </div>
   );

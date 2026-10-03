@@ -2,8 +2,11 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ingestYouTube, uploadVideo } from "@/lib/api";
-
-type Tab = "file" | "youtube";
+import SourceTabs, { Tab } from "@/components/upload/SourceTabs";
+import DropZone from "@/components/upload/DropZone";
+import YouTubeForm from "@/components/upload/YouTubeForm";
+import { Button } from "@/components/ui/Button";
+import Alert from "@/components/ui/Alert";
 
 function UploadInner() {
   const router = useRouter();
@@ -48,27 +51,17 @@ function UploadInner() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-semibold mb-6">New video</h1>
+      <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">New video</h1>
+      <p className="mb-8 mt-3 text-muted">Add a video and start watching while it is censored.</p>
 
-      <div className="inline-flex rounded-xl border border-white/10 overflow-hidden mb-6">
-        {(["file", "youtube"] as Tab[]).map(t => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-4 py-2 text-sm ${
-              tab === t
-                ? "bg-emerald-500 text-black font-medium"
-                : "text-white/70 hover:text-white"
-            }`}
-          >
-            {t === "file" ? "Upload file" : "YouTube URL"}
-          </button>
-        ))}
-      </div>
+      <SourceTabs tab={tab} onChange={setTab} />
 
       {tab === "file" && (
         <div>
-          <div
+          <DropZone
+            file={file}
+            drag={drag}
+            inputRef={inputRef}
             onDragOver={e => { e.preventDefault(); setDrag(true); }}
             onDragLeave={() => setDrag(false)}
             onDrop={e => {
@@ -76,81 +69,31 @@ function UploadInner() {
               const f = e.dataTransfer.files?.[0];
               if (f) setFile(f);
             }}
-            onClick={() => inputRef.current?.click()}
-            className={`cursor-pointer rounded-2xl border-2 border-dashed p-10 text-center transition ${
-              drag
-                ? "border-emerald-400 bg-emerald-500/5"
-                : "border-white/15 hover:border-white/30"
-            }`}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept="video/*"
-              className="hidden"
-              onChange={e => setFile(e.target.files?.[0] ?? null)}
-            />
-            {file ? (
-              <div>
-                <div className="text-emerald-400 text-lg">✓</div>
-                <div className="mt-2 font-medium">{file.name}</div>
-                <div className="text-sm text-white/50">
-                  {(file.size / 1024 / 1024).toFixed(1)} MB
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div className="text-3xl">📁</div>
-                <div className="mt-2 text-white/80">Drop a video here or click to pick</div>
-                <div className="text-sm text-white/40 mt-1">MP4, MOV, WEBM</div>
-              </div>
-            )}
-          </div>
-
-          <button
-            disabled={!file || busy}
-            onClick={submitFile}
-            className="mt-6 w-full rounded-xl bg-emerald-500 text-black font-medium py-3 disabled:opacity-40 hover:bg-emerald-400 transition"
-          >
+            onPick={setFile}
+          />
+          <Button disabled={!file || busy} onClick={submitFile} className="mt-6 w-full py-3.5">
             {busy ? "Uploading…" : "Start processing"}
-          </button>
+          </Button>
         </div>
       )}
 
       {tab === "youtube" && (
         <div>
-          <label className="text-sm text-white/60">YouTube URL</label>
-          <input
-            value={url}
-            onChange={e => setUrl(e.target.value)}
-            placeholder="https://www.youtube.com/watch?v=…"
-            className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 outline-none focus:border-emerald-400/60"
-          />
-          <p className="text-xs text-white/40 mt-2">
-            Single video only. Downloads with yt-dlp at best quality.
-          </p>
-          <button
-            disabled={!url.trim() || busy}
-            onClick={submitUrl}
-            className="mt-6 w-full rounded-xl bg-emerald-500 text-black font-medium py-3 disabled:opacity-40 hover:bg-emerald-400 transition"
-          >
+          <YouTubeForm url={url} onChange={setUrl} />
+          <Button disabled={!url.trim() || busy} onClick={submitUrl} className="mt-6 w-full py-3.5">
             {busy ? "Starting download…" : "Download & process"}
-          </button>
+          </Button>
         </div>
       )}
 
-      {err && (
-        <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-200 text-sm px-4 py-3">
-          {err}
-        </div>
-      )}
+      {err && <div className="mt-4"><Alert>{err}</Alert></div>}
     </div>
   );
 }
 
 export default function UploadPage() {
   return (
-    <Suspense fallback={<div className="text-white/60">Loading…</div>}>
+    <Suspense fallback={<div className="text-muted">Loading…</div>}>
       <UploadInner />
     </Suspense>
   );
