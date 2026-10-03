@@ -6,7 +6,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "CensorNet | Safer video, streamed sooner",
+  title: "CensorNet",
   description: "Censor video intelligently while it processes.",
 };
 

@@ -81,6 +81,11 @@ below is captured from the current Next.js frontend:
 
 [![CensorNet frontend architecture animation](docs-architecture-animation.gif)](v2/frontend/app/architecture/page.tsx)
 
+<video width="100%" controls>
+  <source src="architecture-clip.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 Open the full interactive version at `/architecture` when running the frontend locally. It
 shows the same flow in motion: upload, chunk creation, Redis prioritization, worker processing,
 PostgreSQL records, HLS delivery, and reprioritization after a seek. The animation is a
