@@ -4,9 +4,10 @@ import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/instrument-sans";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import SiteBackground from "@/components/layout/SiteBackground";
 
 export const metadata: Metadata = {
-  title: "CensorNet | Safer video, streamed sooner",
+  title: "CensorNet",
   description: "Censor video intelligently while it processes.",
 };
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body className="flex min-h-screen flex-col">
+        <SiteBackground />
         <Nav />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 sm:py-14">{children}</main>
         <Footer />

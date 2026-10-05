@@ -32,7 +32,7 @@ export default function ArchitectureDiagram({ sim, shown, selected, interactive,
 
   return (
     <div>
-    <div className="overflow-x-auto rounded-2xl border border-line bg-surface p-3 sm:p-5">
+    <div className="overflow-x-auto rounded-2xl border border-line bg-surface/80 p-3 shadow-[0_30px_60px_-30px_rgb(var(--c-accent)/0.35)] backdrop-blur sm:p-5">
       <svg
         viewBox={`0 0 ${VB_W} ${VB_H}`}
         className="block h-auto w-full min-w-[980px]"

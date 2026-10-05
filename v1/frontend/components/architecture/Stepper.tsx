@@ -11,7 +11,7 @@ export default function Stepper({ sim }: { sim: Sim }) {
           <li
             key={label}
             className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-300 ${
-              active ? "border-accent bg-accent text-surface" : "border-line text-muted"
+              active ? "border-transparent bg-gradient-to-r from-accent to-accent2 text-white shadow-md shadow-accent/30" : "border-line text-muted"
             }`}
           >
             <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] font-bold ${active ? "bg-surface text-accent" : "bg-ink/10 text-ink"}`}>{n}</span>

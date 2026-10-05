@@ -12,15 +12,20 @@ if ($Count -le 0) {
     }
 }
 
-# Use the project virtualenv only when its backend dependencies are usable. The
-# current project venv is Python 3.14, for which tokenizers has no wheel.
+# Transformers 4.41.0 depends on tokenizers 0.19.x. That dependency has no
+# Windows/Python 3.14 wheel, so prefer the dedicated Python 3.11 environment.
 $python = $null
 $pythonArgs = ""
-$venvPython = Join-Path $here ".venv\Scripts\python.exe"
-if (Test-Path $venvPython) {
-    & $venvPython -c "import pydantic_settings" 2>$null
-    if ($LASTEXITCODE -eq 0) {
-        $python = (Resolve-Path $venvPython).Path
+$venvCandidates = @(
+    (Join-Path $here ".venv311\Scripts\python.exe"),
+    (Join-Path $here ".venv\Scripts\python.exe")
+)
+foreach ($venvPython in $venvCandidates) {
+    if (-not $python -and (Test-Path $venvPython)) {
+        & $venvPython -c "import sys, pydantic_settings; raise SystemExit(0 if sys.version_info[:2] == (3, 11) else 1)" 2>$null
+        if ($LASTEXITCODE -eq 0) {
+            $python = (Resolve-Path $venvPython).Path
+        }
     }
 }
 
@@ -36,7 +41,7 @@ if (-not $python) {
 }
 
 if (-not $python) {
-    throw "No usable Python environment found. Install backend\requirements.txt in the project venv or install Python 3.11 dependencies."
+    throw "No usable Python 3.11 environment found. Run .\setup_backend.ps1 to install backend\requirements.txt."
 }
 
 Write-Host "Starting $Count workers..."

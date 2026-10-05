@@ -16,10 +16,10 @@ export default function HowItWorks() {
           can explore instead of waiting.
         </p>
       </div>
-      <ol className="space-y-0 border-l-2 border-ink pl-6">
+      <ol className="space-y-0 border-l-2 border-accent/40 pl-6">
         {steps.map((s, i) => (
           <li key={s.title} className="relative pb-8 last:pb-0">
-            <span className="absolute -left-[2.0625rem] top-0.5 grid h-5 w-5 place-items-center rounded-full bg-ink text-[11px] font-semibold text-surface">
+            <span className="absolute -left-[2.0625rem] top-0.5 grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-accent to-accent2 text-[11px] font-semibold text-white shadow-md shadow-accent/30">
               {i + 1}
             </span>
             <h3 className="font-display text-xl font-semibold">{s.title}</h3>

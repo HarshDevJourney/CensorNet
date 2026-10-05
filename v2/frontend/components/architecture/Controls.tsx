@@ -23,7 +23,7 @@ const speedOptions: Array<{ value: Speed; label: number }> = [
 export default function Controls({ playing, speed, canSeek, onToggle, onRestart, onSpeed, onJump }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <button onClick={onToggle} className={`${btn} bg-ink text-surface hover:bg-ink/85 hover:text-surface`} aria-label={playing ? "Pause animation" : "Play animation"}>
+      <button onClick={onToggle} className={`${btn} bg-ink text-surface shadow-[0_8px_24px_-8px_rgb(var(--c-accent)/0.6)] hover:bg-ink/90 hover:text-surface`} aria-label={playing ? "Pause animation" : "Play animation"}>
         {playing ? (
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden><rect x="3" y="2" width="3.5" height="12" rx="1" /><rect x="9.5" y="2" width="3.5" height="12" rx="1" /></svg>
         ) : (
@@ -36,7 +36,7 @@ export default function Controls({ playing, speed, canSeek, onToggle, onRestart,
         Restart
       </button>
 
-      <div role="group" aria-label="Speed" className="inline-flex rounded-lg border border-line p-0.5">
+      <div role="group" aria-label="Speed" className="inline-flex rounded-lg border border-line bg-surface/70 p-0.5 backdrop-blur">
         {speedOptions.map(({ value, label }) => (
           <button
             key={value}
