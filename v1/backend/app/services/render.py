@@ -190,7 +190,7 @@ def _piped(src, start, dur, tmp, fps, has_audio, events, detections, width, heig
 def render_segment(src: str, start: float, dur: float, out_path: Path, *, width: int, height: int,
                    fps: float, has_audio: bool, detections: list[Detection], events: list[dict]) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = out_path.with_suffix(".part")
+    tmp = out_path.with_name(f"{out_path.stem}.{os.getpid()}.part")
     if detections:
         _piped(src, start, dur, tmp, fps, has_audio, events, detections, width, height)
     else:

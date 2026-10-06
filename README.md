@@ -1,6 +1,15 @@
-# CensorNet
+<p align="center">
+  <img
+    src="assets/banner.png"
+    alt="CensorNet"
+    width="100%"
+    style="border-radius: 24px;"
+  />
+</p>
+<p align="center"><br><b>Detects sensitive visuals and language as your video plays.</p></p>
 
-## Safer video, streamed sooner
+
+
 
 CensorNet is a real-time video censorship platform. A user uploads a video or provides a
 YouTube URL, and CensorNet begins preparing a safer HLS stream instead of waiting for the

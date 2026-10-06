@@ -39,6 +39,14 @@ def _heartbeat_loop() -> None:
             pass
         time.sleep(5)
 
+def _lease_keeper(member: str, stop: threading.Event) -> None:
+    """Keep the Redis lease alive while a long chunk is being processed."""
+    while not stop.wait(15):
+        try:
+            queue_service.extend_lease(member)
+        except Exception:  # noqa: BLE001
+            pass
+
 
 def main() -> None:
     signal.signal(signal.SIGINT, _stop)
@@ -74,6 +82,15 @@ def main() -> None:
 
         kind, vid, idx = task
         member = f"p:{vid}" if kind == "prepare" else queue_service.chunk_member(vid, idx)
+
+        stop = threading.Event()
+
+        threading.Thread(
+            target=_lease_keeper,
+            args=(member, stop),
+            daemon=True,
+        ).start()
+
         try:
             if kind == "prepare":
                 prepare_video(vid)
@@ -82,6 +99,7 @@ def main() -> None:
         except Exception:  # noqa: BLE001
             log.exception("task %s crashed", member)
         finally:
+            stop.set()
             queue_service.done(member)
 
     queue_service.forget_worker(WORKER_ID)

@@ -9,7 +9,7 @@ export default function Nav() {
     <nav className="sticky top-0 z-20 border-b border-line bg-paper/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3.5 sm:gap-6 sm:px-6">
         <Link href="/" className="rounded-md" aria-label="CensorNet home">
-          <Logo />
+          <Logo compactOnXs />
         </Link>
         <div className="ml-auto flex items-center gap-0.5 text-sm sm:gap-1">
           <Link href="/upload" className="whitespace-nowrap rounded-lg px-2 py-2 font-medium text-ink transition hover:bg-ink/5 sm:px-3">
