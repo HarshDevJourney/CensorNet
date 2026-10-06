@@ -35,7 +35,10 @@ export default function VideoPage() {
   }
   if (!job) return <div className="text-muted">Loading…</div>;
 
-  const ready = job.total > 0 && job.status !== "failed";
+  const ready =
+    job.total > 0 &&
+    job.status !== "failed" &&
+    job.completed >= Math.min(3, job.total);
   const running = job.status === "processing" || job.status === "preparing" || job.status === "downloading";
 
   return (
