@@ -88,7 +88,7 @@ flowchart LR
 The architecture above is also implemented as an interactive frontend animation. The preview
 below is captured from the current Next.js frontend:
 
-[![CensorNet frontend architecture animation](arch.gif)](v2/frontend/app/architecture/page.tsx)
+[![CensorNet frontend architecture animation](assets/arch.gif)](v2/frontend/app/architecture/page.tsx)
 
 
 Open the full interactive version at `/architecture` when running the frontend locally. It
