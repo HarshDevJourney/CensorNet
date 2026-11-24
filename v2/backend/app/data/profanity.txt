@@ -1,0 +1,64 @@
+# One word per line. '#' starts a comment. Matching is per spoken word (whole word, case-insensitive,
+# repeated letters collapsed, common suffixes handled for Latin-script entries).
+# Ambiguous words (hell, damn, ass, dick, saala, kutta ...) are deliberately NOT included: add them
+# to the file named by PROFANITY_FILE if you want them beeped.
+
+# --- English ---
+fuck
+fucker
+fucking
+motherfucker
+shit
+bullshit
+shithead
+bitch
+bastard
+asshole
+cunt
+whore
+slut
+dickhead
+wanker
+bollocks
+
+# --- Hindi / Hinglish (romanised) ---
+madarchod
+maderchod
+behenchod
+bhenchod
+bahenchod
+bhosdike
+bhosdi
+bhosda
+chutiya
+chutiye
+chutiyapa
+gandu
+gaandu
+gaand
+harami
+haramzada
+haramzade
+haramkhor
+randi
+lund
+lauda
+laude
+
+# --- Hindi (Devanagari) ---
+मादरचोद
+बहनचोद
+भेनचोद
+भोसड़ीके
+भोसड़ी
+चूतिया
+चुतिया
+गांडू
+गाँडू
+गांड
+हरामी
+हरामज़ादा
+हरामखोर
+रंडी
+लंड
+लौड़ा

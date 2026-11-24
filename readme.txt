@@ -1,0 +1,1 @@
+run --powershell -ExecutionPolicy Bypass -File "C:\BTP PROJECT NSUT\CensorNet\v2\start.ps1"

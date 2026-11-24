@@ -1,0 +1,28 @@
+# --- API / infrastructure ---
+fastapi
+uvicorn[standard]
+redis>=5
+sqlalchemy>=2.0
+psycopg2-binary
+pydantic>=2
+pydantic-settings
+python-multipart
+yt-dlp
+numpy
+opencv-python-headless
+
+# --- detectors ---
+nudenet                 # nudity   (brings onnxruntime; replace it with onnxruntime-gpu for the 5080)
+ultralytics             # weapons  (YOLO)
+# RTX 5080 is sm_120. The default CPU wheel will not use it. Install the CUDA 13.4 build:
+#   pip install torch==2.15.0 torchvision==0.29.2 --index-url https://download.pytorch.org/whl/cu134
+#   pip uninstall -y onnxruntime && pip install onnxruntime-gpu
+torch
+torchvision
+transformers==4.41.0    # blood / violence classifier (same version as the offline project)
+huggingface-hub>=0.23.0,<1.0
+safetensors
+pillow
+
+# --- speech ---
+faster-whisper

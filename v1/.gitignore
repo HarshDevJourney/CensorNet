@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.venv311/
+venv/
+node_modules/
+.next/
+backend/storage/
+backend/.env
+.pytest_cache/
+.DS_Store

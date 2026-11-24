@@ -1,0 +1,32 @@
+# PostgreSQL = permanent records (videos, jobs, chunks, what was censored)
+# Redis      = fast chunk priority queue + worker coordination
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: censor
+      POSTGRES_PASSWORD: censor
+      POSTGRES_DB: censor
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U censor -d censor"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "", "--appendonly", "no"]   # queue only; if it is lost the reaper rebuilds it from Postgres
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
